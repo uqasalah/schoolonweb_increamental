@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	<!-- BASE LAYOUT -->
+	<definition name="baseLayout" template="/dashboard.jsp">
+		<put-attribute name="title" value="DashBoard" />
+		<put-attribute name="content" value="Still Working" />
+	</definition>
+	<definition name="dashboard.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="content" value="Select Menu " />
+	</definition>
+	<definition name="wait.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Please wait" />
+		<put-attribute name="content" value="/wait.jsp" />
+	</definition>
+	<!-- FORGOT PASSWORD -->
+	<definition name="forgotpassword.tiles" template="/user/forgotPassword.jsp">
+	</definition>
+	<!-- ADMIN -->
+	<definition name="addadmin.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Add New Administrator" />
+		<put-attribute name="content" value="/admin/addAdmin.jsp" />
+	</definition>
+	<definition name="alladmin.tiles" extends="baseLayout">
+		<put-attribute name="title" value="All Administrator Accounts" />
+		<put-attribute name="content" value="/admin/adminTable.jsp" />
+	</definition>
+	<!-- SCHOOL -->
+	<definition name="addschool.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Add New School" />
+		<put-attribute name="content" value="/school/addSchool.jsp" />
+	</definition>
+	<definition name="allschool.tiles" extends="baseLayout">
+		<put-attribute name="title" value="All School Accounts" />
+		<put-attribute name="content" value="/school/schoolTable.jsp" />
+	</definition>
+	<!-- TEACHER -->
+	<definition name="addteacher.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Add New Teacher" />
+		<put-attribute name="content" value="/teacher/addTeacher.jsp" />
+	</definition>
+	<definition name="allteacher.tiles" extends="baseLayout">
+		<put-attribute name="title" value="All Teacher Accounts" />
+		<put-attribute name="content" value="/teacher/teacherTable.jsp" />
+	</definition>
+	<!-- COURSE -->
+	<definition name="addcourse.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Add New Course" />
+		<put-attribute name="content" value="/course/addCourse.jsp" />
+	</definition>
+	<definition name="allcourse.tiles" extends="baseLayout">
+		<put-attribute name="title" value="All Courses" />
+		<put-attribute name="content" value="/course/courseTable.jsp" />
+	</definition>
+	<!-- CHAPTER -->
+	<definition name="addchapter.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Add New Chapter" />
+		<put-attribute name="content" value="/chapter/addChapter.jsp" />
+	</definition>
+	<definition name="allchapter.tiles" extends="baseLayout">
+		<put-attribute name="title" value="All Chapters" />
+		<put-attribute name="content" value="/chapter/chapterTable.jsp" />
+	</definition>
+	<!-- QUESTION -->
+	<definition name="addmcq.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Add MCQ Question" />
+		<put-attribute name="content" value="/question/addMCQQuestion.jsp" />
+	</definition>
+	<definition name="addsaq.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Add ShortAnswer Question" />
+		<put-attribute name="content" value="/question/addShortQuestion.jsp" />
+	</definition>
+	<definition name="addlaq.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Add LongAnswer Question" />
+		<put-attribute name="content" value="/question/addLongQuestion.jsp" />
+	</definition>
+	<definition name="allquestion.tiles" extends="baseLayout">
+		<put-attribute name="title" value="All Questions" />
+		<put-attribute name="content" value="/question/questionTable.jsp" />
+	</definition>
+
+	<!-- EXAM -->
+	<definition name="exam.select.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Select Syllabus for Exam" />
+		<put-attribute name="content" value="/exam/selectSyllabus.jsp" />
+	</definition>
+	<definition name="exam.config.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Setup Exam Details" />
+		<put-attribute name="content" value="/exam/configExam.jsp" />
+	</definition>
+	<definition name="exam.preview.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Preview/Download Exam Documents" />
+		<put-attribute name="content" value="/exam/showDoc.jsp" />
+	</definition>
+	<!-- PROFILE -->
+	<definition name="updateprofile.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Update your profile" />
+		<put-attribute name="content" value="/user/updateProfile.jsp" />
+	</definition>
+	<definition name="viewProfile.tiles" extends="baseLayout">
+		<put-attribute name="title" value="View Profile" />
+		<put-attribute name="content" value="/user/viewProfile.jsp" />
+	</definition>
+	<definition name="access.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Access Control" />
+		<put-attribute name="content" value="/admin/accessTable.jsp" />
+	</definition>
+</tiles-definitions>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="sowdb"/>
+  <table-filter match-name="result"/>
+  <table-filter match-name="chapter"/>
+  <table-filter match-name="access"/>
+  <table-filter match-name="tag"/>
+  <table-filter match-name="address"/>
+  <table-filter match-name="contact"/>
+  <table-filter match-name="examtype"/>
+  <table-filter match-name="exam_has_course"/>
+  <table-filter match-name="profile"/>
+  <table-filter match-name="role"/>
+  <table-filter match-name="accesstype"/>
+  <table-filter match-name="question"/>
+  <table-filter match-name="exam"/>
+  <table-filter match-name="name"/>
+  <table-filter match-name="answer"/>
+  <table-filter match-name="organisation"/>
+  <table-filter match-name="course"/>
+  <table-filter match-name="user"/>
+  <table-filter match-name="certificate"/>
+  <table-filter match-name="student"/>
+  <table-filter match-name="difficulty"/>
+</hibernate-reverse-engineering>

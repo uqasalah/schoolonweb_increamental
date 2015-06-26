@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 31, 2013 2:24:03 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping default-cascade="save-update,persist"
+	default-lazy="false">
+	<class name="alt.sow.domain.Role" table="role" catalog="sowdb">
+		<id name="idRole" type="int">
+			<column name="idRole" />
+			<generator class="increment" />
+		</id>
+		<property name="roleName" type="string">
+			<column name="RoleName" length="45" />
+		</property>
+		<set name="users" table="user" inverse="true" cascade="none"
+			fetch="select">
+			<key>
+				<column name="Role_id" />
+			</key>
+			<one-to-many class="alt.sow.domain.User" />
+		</set>
+
+		<set name="accesses" table="access" inverse="true" fetch="select">
+			<key>
+				<column name="Role_id" />
+			</key>
+			<one-to-many class="alt.sow.domain.Access" />
+		</set>
+	</class>
+</hibernate-mapping>

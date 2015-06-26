@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="false" />
+
+	<package name="default" namespace="/" extends="struts-default">
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+
+		<interceptors>
+			<interceptor name="authentication"
+				class="alt.sow.interceptors.AuthenticationInterceptor"></interceptor>
+			<interceptor-stack name="authStack">
+				<interceptor-ref name="authentication"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="authStack"></default-interceptor-ref>
+
+		<global-results>
+			<result name="login" type="redirect">login</result>
+			<result name="none" type="redirect">/accessDenied.jsp</result>
+			<!-- <result name="exception">/error.jsp</result> -->
+		</global-results>
+
+
+
+		<!-- <global-exception-mappings> -->
+		<!-- <exception-mapping result="exception" exception="java.lang.Exception"></exception-mapping> -->
+		<!-- </global-exception-mappings> -->
+
+
+		<!-- SQL -->
+		<action name="runSQLs" class="alt.sow.view.SQLAction">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="fileUpload">
+				<param name="maximumSize">1024000</param>
+			</interceptor-ref>
+			<result name="success">sql_runner.jsp</result>
+			<result name="input">sql_runner.jsp</result>
+		</action>
+		<!-- LOGIN -->
+		<action name="login" class="alt.sow.view.LoginAction" method="login">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="redirect">dashboard</result>
+			<result name="input">user/login.jsp</result>
+			<result name="error">user/login.jsp</result>
+		</action>
+
+		<action name="logout" class="alt.sow.view.LoginAction" method="logout">
+			<result name="success" type="redirect">login</result>
+		</action>
+		<action name="forgotPassword" class="alt.sow.view.LoginAction"
+			method="forgot">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="tiles">forgotpassword.tiles</result>
+			<result name="error" type="tiles">forgotpassword.tiles</result>
+			<result name="input" type="tiles">forgotpassword.tiles</result>
+		</action>
+		<action name="dashboard" class="alt.sow.view.LoginAction"
+			method="firstLogin">
+			<result name="dashboard" type="tiles">dashboard.tiles</result>
+			<result name="updateProfile" type="tiles">updateprofile.tiles
+			</result>
+
+			<result name="input" type="tiles">updateprofile.tiles</result>
+			<result name="error" type="tiles">updateprofile.tiles</result>
+		</action>
+		<action name="changeAccess" class="alt.sow.view.AccessControlAction">
+			<result name="access" type="tiles">access.tiles</result>
+		</action>
+		<!-- UPDATE PROFILE -->
+		<action name="updateProfile" class="alt.sow.view.LoginAction"
+			method="updateProfile">
+			<result name="success" type="tiles">dashboard.tiles</result>
+			<result name="error" type="tiles">updateprofile.tiles</result>
+			<result name="input" type="tiles">updateprofile.tiles</result>
+		</action>
+		<action name="viewProfile" class="alt.sow.view.LoginAction"
+			method="viewProfile">
+			<result name="success" type="tiles">viewProfile.tiles</result>
+			<result name="error" type="tiles">viewProfile.tiles</result>
+			<result name="input" type="tiles">viewProfile.tiles</result>
+		</action>
+		<!-- ADMIN -->
+		<action name="addAdmin" class="alt.sow.view.AdminAction"
+			method="add">
+			<param name="task">addadmin</param>
+			<result name="success" type="tiles">addadmin.tiles</result>
+			<result name="error" type="tiles">addadmin.tiles</result>
+			<result name="input" type="tiles">addadmin.tiles</result>
+		</action>
+		<action name="deleteAdmin" class="alt.sow.view.AdminAction"
+			method="delete">
+			<param name="task">deladmin</param>
+			<result name="success" type="redirect">listAdmin</result>
+			<result name="error" type="redirect">listAdmin</result>
+			<result name="input" type="redirect">listAdmin</result>
+		</action>
+		<action name="blockAdmin" class="alt.sow.view.AdminAction"
+			method="block">
+			<param name="task">blkadmin</param>
+			<result name="success" type="redirect">listAdmin</result>
+			<result name="error" type="redirect">listAdmin</result>
+			<result name="input" type="redirect">listAdmin</result>
+		</action>
+		<action name="unBlockAdmin" class="alt.sow.view.AdminAction"
+			method="unBlock">
+			<param name="task">ubkadmin</param>
+			<result name="success" type="redirect">listAdmin</result>
+			<result name="error" type="redirect">listAdmin</result>
+			<result name="input" type="redirect">listAdmin</result>
+		</action>
+		<action name="editAdmin" class="alt.sow.view.AdminAction"
+			method="edit">
+			<param name="task">edtadmin</param>
+			<result name="success" type="redirect">listAdmin</result>
+			<result name="error" type="redirect">listAdmin</result>
+			<result name="input" type="redirect">listAdmin</result>
+		</action>
+		<action name="listAdmin" class="alt.sow.view.AdminAction"
+			method="list">
+			<param name="task">lstadmin</param>
+			<result name="success" type="tiles">alladmin.tiles</result>
+			<result name="error" type="tiles">alladmin.tiles</result>
+			<result name="input" type="tiles">alladmin.tiles</result>
+		</action>
+		<!-- SCHOOL -->
+		<action name="addSchool" class="alt.sow.view.SchoolAction"
+			method="add">
+			<param name="task">addschool</param>
+			<result name="success" type="tiles">addschool.tiles</result>
+			<result name="error" type="tiles">addschool.tiles</result>
+			<result name="input" type="tiles">addschool.tiles</result>
+		</action>
+		<action name="deleteSchool" class="alt.sow.view.SchoolAction"
+			method="delete">
+			<param name="task">delschool</param>
+			<result name="success" type="redirect">listSchool</result>
+			<result name="error" type="redirect">listSchool</result>
+			<result name="input" type="redirect">listSchool</result>
+		</action>
+		<action name="blockSchool" class="alt.sow.view.SchoolAction"
+			method="block">
+			<param name="task">blkschool</param>
+			<result name="success" type="redirect">listSchool</result>
+			<result name="error" type="redirect">listSchool</result>
+			<result name="input" type="redirect">listSchool</result>
+		</action>
+		<action name="unBlockSchool" class="alt.sow.view.SchoolAction"
+			method="unBlock">
+			<param name="task">ubkschool</param>
+			<result name="success" type="redirect">listSchool</result>
+			<result name="error" type="redirect">listSchool</result>
+			<result name="input" type="redirect">listSchool</result>
+		</action>
+		<action name="editSchool" class="alt.sow.view.SchoolAction"
+			method="edit">
+			<param name="task">edtschool</param>
+			<result name="success" type="redirect">listSchool</result>
+			<result name="error" type="redirect">listSchool</result>
+			<result name="input" type="redirect">listSchool</result>
+		</action>
+		<action name="listSchool" class="alt.sow.view.SchoolAction"
+			method="list">
+			<param name="task">lstschool</param>
+			<result name="success" type="tiles">allschool.tiles</result>
+			<result name="error" type="tiles">allschool.tiles</result>
+			<result name="input" type="tiles">allschool.tiles</result>
+		</action>
+		<!-- TEACHER -->
+		<action name="addTeacher" class="alt.sow.view.TeacherAction"
+			method="add">
+			<param name="task">addteacher</param>
+			<result name="success" type="tiles">addteacher.tiles</result>
+			<result name="error" type="tiles">addteacher.tiles</result>
+			<result name="input" type="tiles">addteacher.tiles</result>
+		</action>
+		<action name="deleteTeacher" class="alt.sow.view.TeacherAction"
+			method="delete">
+			<param name="task">delteacher</param>
+			<result name="success" type="redirect">listTeacher</result>
+			<result name="error" type="redirect">listTeacher</result>
+			<result name="input" type="redirect">listTeacher</result>
+		</action>
+		<action name="blockTeacher" class="alt.sow.view.TeacherAction"
+			method="block">
+			<param name="task">blkteacher</param>
+			<result name="success" type="redirect">listTeacher</result>
+			<result name="error" type="redirect">listTeacher</result>
+			<result name="input" type="redirect">listTeacher</result>
+		</action>
+		<action name="unBlockTeacher" class="alt.sow.view.TeacherAction"
+			method="unBlock">
+			<result name="success" type="redirect">listTeacher</result>
+			<result name="error" type="redirect">listTeacher</result>
+			<result name="input" type="redirect">listTeacher</result>
+		</action>
+		<action name="editTeacher" class="alt.sow.view.TeacherAction"
+			method="edit">
+			<result name="success" type="redirect">listTeacher</result>
+			<result name="error" type="redirect">listTeacher</result>
+			<result name="input" type="redirect">listTeacher</result>
+		</action>
+		<action name="listTeacher" class="alt.sow.view.TeacherAction"
+			method="list">
+			<result name="success" type="tiles">allteacher.tiles</result>
+			<result name="success" type="tiles">allteacher.tiles</result>
+			<result name="success" type="tiles">allteacher.tiles</result>
+		</action>
+
+
+		<!-- COURSE -->
+		<action name="addCourse" class="alt.sow.view.CourseAction"
+			method="add">
+			<result name="success" type="tiles">addcourse.tiles</result>
+			<result name="error" type="tiles">addcourse.tiles</result>
+			<result name="input" type="tiles">addcourse.tiles</result>
+		</action>
+		<action name="editCourse" class="alt.sow.view.CourseAction"
+			method="edit">
+			<result name="success" type="redirect">listCourse</result>
+			<result name="error">course/courseMgmt.jsp</result>
+			<result name="input">course/courseMgmt.jsp</result>
+		</action>
+		<action name="deleteCourse" class="alt.sow.view.CourseAction"
+			method="delete">
+			<result name="success" type="tiles">allcourse.tiles</result>
+			<result name="error" type="tiles">allcourse.tiles</result>
+			<result name="input" type="tiles">allcourse.tiles</result>
+		</action>
+		<action name="listCourse" class="alt.sow.view.CourseAction"
+			method="list">
+			<result name="success" type="tiles">allcourse.tiles</result>
+		</action>
+		<!-- CHAPTER -->
+		<action name="addChapter" class="alt.sow.view.ChapterAction"
+			method="add">
+			<result name="success" type="tiles">addchapter.tiles</result>
+			<result name="error" type="tiles">addchapter.tiles</result>
+			<result name="input" type="tiles">addchapter.tiles</result>
+		</action>
+		<action name="editChapter" class="alt.sow.view.ChapterAction"
+			method="edit">
+			<result name="success" type="tiles">allchapter.tiles</result>
+			<result name="error" type="tiles">allchapter.tiles</result>
+			<result name="input" type="tiles">allchapter.tiles</result>
+		</action>
+		<action name="deleteChapter" class="alt.sow.view.ChapterAction"
+			method="delete">
+			<result name="success" type="tiles">allchapter.tiles</result>
+			<result name="error" type="tiles">allchapter.tiles</result>
+			<result name="input" type="tiles">allchapter.tiles</result>
+		</action>
+		<action name="listChapter" class="alt.sow.view.ChapterAction"
+			method="list">
+			<result name="success" type="tiles">allchapter.tiles</result>
+			<result name="error" type="tiles">allchapter.tiles</result>
+			<result name="input" type="tiles">allchapter.tiles</result>
+		</action>
+		<!-- QUESTION -->
+		<action name="addMCQQuestion" class="alt.sow.view.QuestionAction"
+			method="addMCQ">
+			<result name="success" type="tiles">addmcq.tiles</result>
+			<result name="error" type="tiles">addmcq.tiles</result>
+			<result name="input" type="tiles">addmcq.tiles</result>
+		</action>
+		<action name="addLongQuestion" class="alt.sow.view.QuestionAction"
+			method="addLong">
+			<result name="success" type="tiles">addlaq.tiles</result>
+			<result name="error" type="tiles">addlaq.tiles</result>
+			<result name="input" type="tiles">addlaq.tiles</result>
+		</action>
+		<action name="addShortQuestion" class="alt.sow.view.QuestionAction"
+			method="addShort">
+			<result name="success" type="tiles">addsaq.tiles</result>
+			<result name="error" type="tiles">addsaq.tiles</result>
+			<result name="input" type="tiles">addsaq.tiles</result>
+		</action>
+		<action name="deleteQuestion" class="alt.sow.view.QuestionAction"
+			method="delete">
+			<result name="success" type="redirect">listQuestion</result>
+			<result name="error" type="tiles">listQuestion</result>
+			<result name="input" type="tiles">listQuestion</result>
+		</action>
+		<action name="listQuestion" class="alt.sow.view.QuestionAction"
+			method="list">
+			<result name="success" type="tiles">allquestion.tiles</result>
+		</action>
+
+		<!-- EXAM -->
+		<action name="selectSyllabus" class="alt.sow.view.ExamAction"
+			method="echo">
+			<result name="success" type="tiles">exam.select.tiles</result>
+			<result name="input" type="tiles">exam.select.tiles</result>
+			<result name="error" type="tiles">exam.select.tiles</result>
+		</action>
+		<action name="submitSyllabus" class="alt.sow.view.ExamAction"
+			method="submit">
+			<result name="success" type="tiles">exam.config.tiles</result>
+			<result name="input" type="tiles">exam.select.tiles</result>
+			<result name="error" type="tiles">exam.select.tiles</result>
+		</action>
+
+		<action name="configExamAction" class="alt.sow.view.ExamAction"
+			method="config">
+			<!-- <interceptor-ref name="execAndWait"> -->
+			<!-- <param name="delay">1000</param> -->
+			<!-- <param name="delaySleepInterval">500</param> -->
+			<!-- </interceptor-ref> -->
+			<!-- <result name="wait" type="tiles">wait.tiles</result> -->
+			<result name="success" type="tiles">exam.preview.tiles</result>
+			<result name="input" type="tiles">exam.config.tiles</result>
+			<result name="error" type="tiles">exam.config.tiles</result>
+		</action>
+		<action name="downloadDoc" class="alt.sow.view.ExamAction"
+			method="download">
+			<result name="success">exam/showDoc.jsp</result>
+			<result name="error">exam/showDoc.jsp</result>
+			<result name="input">exam/showDoc.jsp</result>
+		</action>
+		<action name="fileDownloadS" class="alt.sow.view.DownloadAction"
+			method="std">
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="Exam-Students-Copy.DOC"</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		<action name="fileDownloadT" class="alt.sow.view.DownloadAction"
+			method="tcr">
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="Exam-Teachers-Copy.DOC"</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		<action name="filePreviewS" class="alt.sow.view.DownloadAction"
+			method="std">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		<action name="filePreviewT" class="alt.sow.view.DownloadAction"
+			method="tcr">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+
+		<!-- <action name="selectSyllabus" class="alt.sow.view.ExamAction" -->
+		<!-- method="echo"> -->
+		<!-- <result name="success" type="tiles">exam.config.tiles</result> -->
+		<!-- <result name="input" type="tiles">exam.select.tiles</result> -->
+		<!-- <result name="error" type="tiles">exam.select.tiles</result> -->
+		<!-- </action> -->
+		<!-- <action name="configExamAction" class="alt.sow.view.ExamAction" -->
+		<!-- method="config"> -->
+		<!-- <result name="success" type="tiles">exam.preview.tiles</result> -->
+		<!-- <result name="input" type="tiles">exam.config.tiles</result> -->
+		<!-- <result name="error" type="tiles">exam.config.tiles</result> -->
+		<!-- </action> -->
+		<!-- <action name="downloadDoc" class="alt.sow.view.ExamAction" -->
+		<!-- method="download"> -->
+		<!-- <result name="success">exam/showDoc.jsp</result> -->
+		<!-- <result name="error">exam/showDoc.jsp</result> -->
+		<!-- <result name="input">exam/showDoc.jsp</result> -->
+		<!-- </action> -->
+		<!-- <action name="fileDownloadS" class="alt.sow.view.DownloadAction" -->
+		<!-- method="std"> -->
+		<!-- <result name="success" type="stream"> -->
+		<!-- <param name="contentType">application/octet-stream</param> -->
+		<!-- <param name="inputName">fileInputStream</param> -->
+		<!-- <param name="contentDisposition">attachment;filename="Exam-Students-Copy.DOC"</param> -->
+		<!-- <param name="bufferSize">1024</param> -->
+		<!-- </result> -->
+		<!-- </action> -->
+		<!-- <action name="fileDownloadT" class="alt.sow.view.DownloadAction" -->
+		<!-- method="tcr"> -->
+		<!-- <result name="success" type="stream"> -->
+		<!-- <param name="contentType">application/octet-stream</param> -->
+		<!-- <param name="inputName">fileInputStream</param> -->
+		<!-- <param name="contentDisposition">attachment;filename="Exam-Teachers-Copy.DOC"</param> -->
+		<!-- <param name="bufferSize">1024</param> -->
+		<!-- </result> -->
+		<!-- </action> -->
+		<!-- <action name="filePreviewS" class="alt.sow.view.DownloadAction" -->
+		<!-- method="std"> -->
+		<!-- <result name="success" type="stream"> -->
+		<!-- <param name="contentType">text/html</param> -->
+		<!-- <param name="inputName">fileInputStream</param> -->
+		<!-- <param name="bufferSize">1024</param> -->
+		<!-- </result> -->
+		<!-- </action> -->
+		<!-- <action name="filePreviewT" class="alt.sow.view.DownloadAction" -->
+		<!-- method="tcr"> -->
+		<!-- <result name="success" type="stream"> -->
+		<!-- <param name="contentType">text/html</param> -->
+		<!-- <param name="inputName">fileInputStream</param> -->
+		<!-- <param name="bufferSize">1024</param> -->
+		<!-- </result> -->
+		<!-- </action> -->
+		<!-- Access -->
+		<!-- <action name="addShortQuestion" class="alt.sow.view.AccessControlAction" -->
+		<!-- method="addNew"> -->
+		<!-- <result name="success" type="tiles">addacc.tiles</result> -->
+		<!-- <result name="error" type="tiles">addacc.tiles</result> -->
+		<!-- <result name="input" type="tiles">addacc.tiles</result> -->
+		<!-- </action> -->
+	</package>
+</struts>

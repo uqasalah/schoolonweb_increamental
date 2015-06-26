@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 31, 2013 2:24:03 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping default-cascade="save-update,persist"
+	default-lazy="false">
+	<class name="alt.sow.domain.User" table="user" catalog="sowdb">
+		<id name="idUser" type="int">
+			<column name="idUser" />
+			<generator class="increment" />
+		</id>
+		<many-to-one name="profile" class="alt.sow.domain.Profile"
+			fetch="select" cascade="all" >
+			<column name="Profile_id" />
+		</many-to-one>
+		<many-to-one name="role" class="alt.sow.domain.Role"
+			fetch="select">
+			<column name="Role_id" />
+		</many-to-one>
+		<property name="username" type="string">
+			<column name="Username" length="45" unique="true" />
+		</property>
+		<property name="password" type="string">
+			<column name="Password" length="45" />
+		</property>
+		<property name="lastLogin" type="timestamp">
+			<column name="LastLogin" length="19" />
+		</property>
+		<property name="firstLogin" type="java.lang.Boolean">
+			<column name="FirstLogin" />
+		</property>
+		<property name="authenticated" type="java.lang.Boolean">
+			<column name="Authenticated" />
+		</property>
+		<property name="blocked" type="java.lang.Boolean">
+			<column name="Blocked" />
+		</property>
+		<property name="userCode" type="string">
+			<column name="UserCode" length="45" />
+		</property>
+		<set name="certificatesForAddedBy" table="certificate" inverse="true"
+			fetch="select">
+			<key>
+				<column name="Added_by" />
+			</key>
+			<one-to-many class="alt.sow.domain.Certificate" />
+		</set>
+		<set name="results" table="result" inverse="true" fetch="select">
+			<key>
+				<column name="Added_by" />
+			</key>
+			<one-to-many class="alt.sow.domain.Result" />
+		</set>
+		<set name="courses" table="course" inverse="true" fetch="select">
+			<key>
+				<column name="Added_by" />
+			</key>
+			<one-to-many class="alt.sow.domain.Course" />
+		</set>
+		<set name="students" table="student" inverse="true" fetch="select">
+			<key>
+				<column name="Added_by" />
+			</key>
+			<one-to-many class="alt.sow.domain.Student" />
+		</set>
+		<set name="exams" table="exam" inverse="true" fetch="select">
+			<key>
+				<column name="Added_by" />
+			</key>
+			<one-to-many class="alt.sow.domain.Exam" />
+		</set>
+		<set name="certificatesForUserIdTeacher" table="certificate"
+			inverse="true" fetch="select">
+			<key>
+				<column name="User_idTeacher" />
+			</key>
+			<one-to-many class="alt.sow.domain.Certificate" />
+		</set>
+		<set name="questions" table="question" inverse="true" fetch="select">
+			<key>
+				<column name="Added_by" />
+			</key>
+			<one-to-many class="alt.sow.domain.Question" />
+		</set>
+		<set name="answers" table="answer" inverse="true" fetch="select"
+			cascade="none">
+			<key>
+				<column name="Added_by" />
+			</key>
+			<one-to-many class="alt.sow.domain.Answer" />
+		</set>
+		<set name="chapters" table="chapter" inverse="true" fetch="select"
+			cascade="none">
+			<key>
+				<column name="Added_by" />
+			</key>
+			<one-to-many class="alt.sow.domain.Chapter" />
+		</set>
+	</class>
+</hibernate-mapping>

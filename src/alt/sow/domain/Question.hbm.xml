@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 31, 2013 2:24:03 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping default-cascade="save-update,persist"
+	default-lazy="false">
+	<class name="alt.sow.domain.Question" table="question" catalog="sowdb">
+		<id name="idQuestion" type="int">
+			<column name="idQuestion" />
+			<generator class="increment" />
+		</id>
+		<many-to-one name="chapter" class="alt.sow.domain.Chapter"
+			fetch="select">
+			<column name="Chapter_id" />
+		</many-to-one>
+		<many-to-one name="user" class="alt.sow.domain.User"
+			fetch="select">
+			<column name="Added_by" />
+		</many-to-one>
+		<many-to-one name="difficulty" class="alt.sow.domain.Difficulty"
+			fetch="select">
+			<column name="Difficulty_id" />
+		</many-to-one>
+		<many-to-one name="tag" class="alt.sow.domain.Tag" fetch="select">
+			<column name="Tag_idTag" />
+		</many-to-one>
+		<property name="question" type="string">
+			<column name="Question" />
+		</property>
+		<property name="dif_int" type="int">
+			<column name="dif" />
+		</property>
+		<property name="cat_int" type="int">
+			<column name="cat" />
+		</property>
+		<set name="exams" table="exam_has_question" inverse="false" 
+			fetch="select">
+			<key>
+				<column name="question_idQuestion" not-null="true" />
+			</key>
+			<many-to-many entity-name="alt.sow.domain.Exam">
+				<column name="exam_idExam" not-null="true" />
+			</many-to-many>
+		</set>
+		<set name="answers" table="answer" inverse="true" cascade="all"
+			fetch="select">
+			<key>
+				<column name="Question_id" />
+			</key>
+			<one-to-many class="alt.sow.domain.Answer" />
+		</set>
+	</class>
+</hibernate-mapping>

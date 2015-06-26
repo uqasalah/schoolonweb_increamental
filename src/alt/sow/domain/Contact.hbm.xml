@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 31, 2013 2:24:03 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping default-cascade="save-update,persist" default-lazy="false">
+    <class name="alt.sow.domain.Contact" table="contact" catalog="sowdb">
+        <id name="idContact" type="int">
+            <column name="idContact" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="address" class="alt.sow.domain.Address" fetch="select">
+            <column name="Address_id" />
+        </many-to-one>
+        <property name="mobile" type="string">
+            <column name="Mobile" length="45" />
+        </property>
+        <property name="phone" type="string">
+            <column name="Phone" length="45" />
+        </property>
+        <property name="email" type="string">
+            <column name="Email" length="45" />
+        </property>
+        <set name="profiles" table="profile" inverse="true"  fetch="select">
+            <key>
+                <column name="Contact_id" />
+            </key>
+            <one-to-many class="alt.sow.domain.Profile" />
+        </set>
+    </class>
+</hibernate-mapping>

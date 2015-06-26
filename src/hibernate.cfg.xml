@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/schoolonweb</property>
+		<property name="hibernate.connection.username">adminVrXj5Er</property>
+		<property name="hibernate.connection.password">zU8qLuctklwi</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.connection.pool_size">15</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+		<!-- <mapping class="alt.sow.domain.Access"/> -->
+		<!-- <mapping class="alt.sow.domain.Role"/> -->
+		<mapping resource="alt/sow/domain/Exam.hbm.xml" />
+		<mapping resource="alt/sow/domain/Organisation.hbm.xml" />
+		<mapping resource="alt/sow/domain/Accesstype.hbm.xml" />
+		<mapping resource="alt/sow/domain/Access.hbm.xml" />
+		<mapping resource="alt/sow/domain/Difficulty.hbm.xml" />
+		<mapping resource="alt/sow/domain/User.hbm.xml" />
+		<mapping resource="alt/sow/domain/Student.hbm.xml" />
+		<mapping resource="alt/sow/domain/Course.hbm.xml" />
+		<mapping resource="alt/sow/domain/Profile.hbm.xml" />
+		<mapping resource="alt/sow/domain/Tag.hbm.xml" />
+		<mapping resource="alt/sow/domain/Question.hbm.xml" />
+		<mapping resource="alt/sow/domain/Answer.hbm.xml" />
+		<mapping resource="alt/sow/domain/Chapter.hbm.xml" />
+		<mapping resource="alt/sow/domain/Certificate.hbm.xml" />
+		<mapping resource="alt/sow/domain/Examtype.hbm.xml" />
+		<mapping resource="alt/sow/domain/Address.hbm.xml" />
+		<mapping resource="alt/sow/domain/Role.hbm.xml" />
+		<mapping resource="alt/sow/domain/Result.hbm.xml" />
+		<mapping resource="alt/sow/domain/Contact.hbm.xml" />
+		<mapping resource="alt/sow/domain/Name.hbm.xml" />
+	</session-factory>
+</hibernate-configuration>

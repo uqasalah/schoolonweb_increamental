@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 31, 2013 2:24:03 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping default-cascade="save-update,persist"
+	default-lazy="false">
+	<class name="alt.sow.domain.Profile" table="profile" catalog="sowdb">
+		<id name="idProfile" type="int">
+			<column name="idProfile" />
+			<generator class="increment" />
+		</id>
+		<many-to-one name="nameByNameIdName" class="alt.sow.domain.Name"
+			fetch="select">
+			<column name="Name_id_Name" />
+		</many-to-one>
+		<many-to-one name="organisation" class="alt.sow.domain.Organisation"
+			fetch="select">
+			<column name="organisation_id_School" />
+		</many-to-one>
+		<many-to-one name="nameByNameIdFather" class="alt.sow.domain.Name"
+			fetch="select">
+			<column name="Name_id_Father" />
+		</many-to-one>
+		<many-to-one name="contact" class="alt.sow.domain.Contact"
+			cascade="all" fetch="select">
+			<column name="Contact_id" />
+		</many-to-one>
+		<property name="birthDate" type="date">
+			<column name="BirthDate" length="10" />
+		</property>
+		<property name="profilePicture" type="binary">
+			<column name="profilePicture" />
+		</property>
+		<set name="users" table="user" inverse="true"  fetch="select">
+			<key>
+				<column name="Profile_id" />
+			</key>
+			<one-to-many class="alt.sow.domain.User" />
+		</set>
+		<set name="students" table="student" inverse="true" fetch="select">
+			<key>
+				<column name="Profile_id" />
+			</key>
+			<one-to-many class="alt.sow.domain.Student" />
+		</set>
+		<set name="exams" table="exam" inverse="true" fetch="select">
+			<key>
+				<column name="Profile_idProfile" />
+			</key>
+			<one-to-many class="alt.sow.domain.Exam" />
+		</set>
+	</class>
+</hibernate-mapping>

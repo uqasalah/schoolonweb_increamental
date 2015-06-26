@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 31, 2013 2:24:03 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping default-cascade="save-update,persist" default-lazy="false">
+    <class name="alt.sow.domain.Organisation" table="organisation" catalog="sowdb">
+        <id name="idOrganisation" type="int">
+            <column name="idOrganisation" />
+            <generator class="increment" />
+        </id>
+        <property name="organisationName" type="string">
+            <column name="OrganisationName" length="45" />
+        </property>
+        <property name="organisationCode" type="string">
+            <column name="OrganisationCode" length="45" />
+        </property>
+        <set name="profiles" table="profile" inverse="true"  fetch="select">
+            <key>
+                <column name="organisation_id_School" />
+            </key>
+            <one-to-many class="alt.sow.domain.Profile" />
+        </set>
+    </class>
+</hibernate-mapping>

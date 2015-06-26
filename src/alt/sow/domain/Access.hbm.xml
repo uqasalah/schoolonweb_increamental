@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 31, 2013 2:24:03 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping default-cascade="save-update,persist" default-lazy="false">
+    <class name="alt.sow.domain.Access" table="access" catalog="sowdb">
+        <id name="idAccess" type="int">
+            <column name="idAccess" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="accesstype" class="alt.sow.domain.Accesstype" fetch="select">
+            <column name="AccessType_id" />
+        </many-to-one>
+        <many-to-one name="role" class="alt.sow.domain.Role" fetch="select">
+            <column name="Role_id" />
+        </many-to-one>
+        <property name="accessTableName" type="string">
+            <column name="AccessTableName" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>

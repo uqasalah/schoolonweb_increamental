@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 31, 2013 2:24:03 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping default-cascade="save-update,persist" default-lazy="false">
+    <class name="alt.sow.domain.Result" table="result" catalog="sowdb">
+        <id name="idResult" type="int">
+            <column name="idResult" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="student" class="alt.sow.domain.Student" fetch="select">
+            <column name="Student_id" />
+        </many-to-one>
+        <many-to-one name="user" class="alt.sow.domain.User" fetch="select">
+            <column name="Added_by" />
+        </many-to-one>
+        <property name="obtainedMarks" type="java.lang.Float">
+            <column name="ObtainedMarks" precision="12" scale="0" />
+        </property>
+        <property name="pass" type="java.lang.Boolean">
+            <column name="Pass" />
+        </property>
+        <set name="certificates" table="certificate" inverse="true"  fetch="select">
+            <key>
+                <column name="Result_idResult" />
+            </key>
+            <one-to-many class="alt.sow.domain.Certificate" />
+        </set>
+    </class>
+</hibernate-mapping>
