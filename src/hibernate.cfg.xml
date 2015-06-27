@@ -3,10 +3,14 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/schoolonweb</property>
-		<property name="hibernate.connection.username">adminVrXj5Er</property>
-		<property name="hibernate.connection.password">zU8qLuctklwi</property>
+		<property name="driverClassName">${jdbc.driver}</property>
+		<property name="url">jdbc:mysql://${OPENSHIFT_MYSQL_DB_HOST}:${OPENSHIFT_MYSQL_DB_PORT}/${OPENSHIFT_APP_NAME}</property>
+		<property name="username">${OPENSHIFT_MYSQL_DB_USERNAME}</property>
+		<property name="password">${OPENSHIFT_MYSQL_DB_PASSWORD}</property>
+		<!-- <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property> -->
+		<!-- <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/schoolonweb</property> -->
+		<!-- <property name="hibernate.connection.username">adminVrXj5Er</property> -->
+		<!-- <property name="hibernate.connection.password">zU8qLuctklwi</property> -->
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<property name="hibernate.connection.pool_size">15</property>
 		<property name="hibernate.current_session_context_class">thread</property>
